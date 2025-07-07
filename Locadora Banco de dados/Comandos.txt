@@ -1,0 +1,23 @@
+select descricao, dataManutencao, custo
+from Manutenção
+
+
+Select Sum(valorTotal) AS TotalArrecadado
+From Pagamento
+Where estado = 'Pago';
+
+
+Select V.modelo, V.marca, Count(*) as quantidadeLocacoes
+From Veiculo V
+Join LocacaoVeiculo LV on V.idVeiculo = LV.idVeiculo
+group by  V.idVeiculo, V.modelo, V.marca
+order by quantidadeLocacoes desc;
+
+
+Select C.nome, SUM(P.valorTotal) as valorPendente
+From Cliente C
+Join Locacao L on C.idCliente = L.idCliente
+Join Pagamento P on L.idPagamento = P.idPagamento
+where P.estado = 'Pendente'
+group by C.idCliente, C.nome
+order by C.nome asc;
